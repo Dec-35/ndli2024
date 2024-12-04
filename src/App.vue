@@ -1,17 +1,19 @@
-<script setup>
+<script>
+import Header from '@components/Header.vue';
+
+export default {
+  name: "App",
+  components: {
+    Header
+  }
+}
 </script>
 
 <template>
-  <header class="fixed top-0 left-0 w-screen flex h-16 justify-between items-center px-6 bg-white">
-    <h1 class="font-stylish">
-      Nuit de l'info 2024
-    </h1>
-    <h2>
-      Team Heho
-    </h2>
-  </header>
+  <Header />
 
   <main class="mt-16 p-4">
+    <router-view />
   </main>
 </template>
 

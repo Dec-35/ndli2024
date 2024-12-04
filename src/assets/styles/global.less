@@ -4,21 +4,65 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap');
 
 body{
-    background-color: #f0f2f5;
+    background-color: var(--bg-color);
     font-family: 'Inter', 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-weight: 500;
-    color: #333;
+    color: var(--text-color);
     font-size: 16px;
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+
+    --bg-color: #f0f2f5;
+    --header-color: #ffffff;
+    --text-color: #333;
+    --important-color: #000;
+    --glow-color: rgba(66, 77, 98, 0.88);
+
+    &.dark{
+        --bg-color: #0d0f13;
+        --header-color: #20272f;
+        --text-color: #e2e8f0;
+        --important-color: #ffffff;
+        --glow-color: rgba(161, 182, 227, 0.87);
+    }
+}
+
+#pageHeader{
+    background-color: var(--header-color);
 }
 
 .font-stylish{
     font-family: 'Old Standard TT', 'Roboto', sans-serif;
     font-weight: 600;
     font-size: 1.4rem;
+}
+
+h2{
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
+    padding: 0;
+}
+
+h3{
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0;
+    padding: 0;
+}
+
+h4{
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin: 0;
+    padding: 0;
+}
+
+.font-glow{
+    color: var(--important-color);
+    text-shadow: 0 0 50px var(--glow-color);
 }
