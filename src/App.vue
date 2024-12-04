@@ -3,7 +3,7 @@
 
 <template>
   <header class="fixed top-0 left-0 w-screen flex h-16 justify-between items-center px-6 bg-white">
-    <h1>
+    <h1 class="font-stylish">
       Nuit de l'info 2024
     </h1>
     <h2>
@@ -11,8 +11,7 @@
     </h2>
   </header>
 
-  <main class="mt-16">
-    main
+  <main class="mt-16 p-4">
   </main>
 </template>
 
