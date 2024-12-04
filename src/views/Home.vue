@@ -24,10 +24,12 @@ export default {
     },
     calculateTimeLeft() {
       const diff = this.endDate - new Date();
-      return new Date(diff).toISOString().substr(11, 8);
+      return this.formatTime(new Date(diff));
     }
   },
   mounted() {
+    this.timeUntil = this.calculateTimeUntil();
+    this.timeLeft = this.calculateTimeLeft();
     setInterval(() => {
       this.timeUntil = this.calculateTimeUntil();
       this.timeLeft = this.calculateTimeLeft();
@@ -43,7 +45,7 @@ export default {
       <h2>Début dans {{ timeUntil }}</h2>
     </div>
     <div v-else>
-      <h1>La nuit de l'info a commencé !</h1>
+      <h1 class="text-center">La nuit de l'info a commencé !</h1>
       <h2>Fin dans {{ timeLeft }}</h2>
     </div>
   </div>
