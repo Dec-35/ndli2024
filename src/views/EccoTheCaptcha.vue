@@ -6,20 +6,25 @@
       <button class="btn">Jouer</button>
     </div>
     <div class="component-container">
-      <div class="rectangle">Contenu du composant rectangulaire</div>
+      <GameCaptcha />
     </div>
   </div>
 </template>
 
 <script>
+import GameCaptcha from '@components/GameCaptcha.vue'
+
 export default {
   name: 'EccoTheCaptcha',
   data() {
-    return {};
+    return {}
+  },
+  components: {
+    GameCaptcha,
   },
   methods: {},
   mounted() {},
-};
+}
 </script>
 
 <style scoped>
