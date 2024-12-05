@@ -36,9 +36,13 @@ export default {
       <h2 class="text-2xl font-stylish font-black text-glow">
         Les océans sont essentiels à la vie sur Terre.
       </h2>
-      <p class="text-sm">
-        Les océans couvrent 71% de la surface de la Terre et sont essentiels à la vie sur notre planète. Ils produisent la moitié de l'oxygène que nous respirons, absorbent le dioxyde de carbone de l'atmosphère et régulent le climat. Les océans sont également une source importante de nourriture et de médicaments et abritent une grande variété de formes de vie.
+      <p class="text-sm mb-4">
+        Les océans couvrent 71% de la surface de la Terre et sont essentiels à la vie sur notre planète. Ils produisent la moitié de l'oxygène que nous respirons, absorbent le dioxyde de carbone de l'atmosphère et régulent le climat.
       </p>
+
+      <div>
+
+      </div>
     </div>
   </div>
 </div>
@@ -46,14 +50,15 @@ export default {
 
 <style scoped>
 .bg-gradient{
-  background-color: #013240;
-  background-image: linear-gradient(180deg, #013240, #05202E);
+  background-image: linear-gradient(180deg, #02767a, #05202E);
 }
 
 .bg-water{
-  background-color: #05202E;
+  /*background-color: #05202E;*/
   background-image: url('@assets/waterSurface.jpg');
-  background-size: cover;
+  background-size: 2000px;
+  background-position: 0 -300px;
+  background-repeat: repeat-x;
 }
 
 .text-glow{
@@ -61,7 +66,7 @@ export default {
 }
 
 .content{
-  box-shadow: -1px 0 40px 0 rgba(2, 34, 44, 0.9);
+  box-shadow: -1px 0 60px 4px #005052;
 
   .desc-content{
     max-width: 40%;
