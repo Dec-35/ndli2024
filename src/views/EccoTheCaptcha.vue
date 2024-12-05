@@ -2,11 +2,20 @@
   <div class="page-container">
     <h1 class="page-title">Ecco the Captcha</h1>
     <div class="button-container">
-      <button class="btn">Règles</button>
+      <button class="btn" @click="openModal">Règles</button>
       <button class="btn">Jouer</button>
     </div>
     <div class="component-container">
       <div class="rectangle">Contenu du composant rectangulaire</div>
+    </div>
+
+    <!-- Fenêtre modale -->
+    <div v-if="isModalVisible" class="modal-overlay" @click="closeModal">
+      <div class="modal">
+        <h2>Règles du jeu</h2>
+        <p>Pour gagner et accéder au jeu, prouvez que vous n'êtes pas un robot en récupérant toutes les bouteilles en plastique dans l'ordre indiqué !</p>
+        <button class="btn-close" @click="closeModal">Fermer</button>
+      </div>
     </div>
   </div>
 </template>
@@ -15,10 +24,18 @@
 export default {
   name: 'EccoTheCaptcha',
   data() {
-    return {};
+    return {
+      isModalVisible: false,  // Etat pour la fenêtre modale
+    };
   },
-  methods: {},
-  mounted() {},
+  methods: {
+    openModal() {
+      this.isModalVisible = true;  // Ouvre la fenêtre modale
+    },
+    closeModal() {
+      this.isModalVisible = false;  // Ferme la fenêtre modale
+    },
+  },
 };
 </script>
 
@@ -62,7 +79,6 @@ export default {
   background-color: #000dff8e;
   color: #ffffff;
   border: 2px solid #ffffff;
-  border-radius: 5px;
   cursor: pointer;
 }
 
@@ -92,5 +108,51 @@ export default {
   color: #001f3f;
   font-size: 1.5rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Style pour la fenêtre modale */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(114, 104, 104, 0.5); /* Fond sombre avec transparence */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background-color: rgb(123, 121, 121); /* Fenêtre modale avec légère transparence */
+  padding: 80px;
+  width: 600px;
+  text-align: center;
+  color: #ffffff; /* Texte noir */
+  border: 2px solid #aaa; /* Bordure sans arrondi */
+}
+
+.modal h2 {
+  margin-bottom: 10px;
+}
+
+.modal p {
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+
+.btn-close {
+  background-color:#000dff8e;
+  color: #ffffff;
+  border: 2px solid #ffffff;  /* Contour blanc */
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size:1rem;
+}
+
+.btn-close:hover {
+  background-color: #ffffff;
+  color: #000dff8e;
 }
 </style>
