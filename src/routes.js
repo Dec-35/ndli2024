@@ -7,7 +7,7 @@ const routes = [
     component: () => import('@views/Home.vue'),
   },
   {
-    path: '/',
+    path: '/EccoTheCaptcha',
     name: 'EccoTheCaptcha',
     component: () => import('@views/EccoTheCaptcha.vue'),
   },
