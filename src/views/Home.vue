@@ -1,57 +1,53 @@
 <script>
-import dateMixin from '@mixins/dateMixin.js';
 
 export default {
   name: "Home",
-  mixins: [dateMixin],
+  mixins: [],
   data() {
     return {
-      startDate: new Date("2024-12-05T15:39:00"),
-      endDate: new Date("2024-12-06T07:04:00"),
-      timeLeft: 0,
-      timeUntil: 0,
+
     }
   },
   computed: {
-    hasNotYetStarted() {
-      return new Date() < this.startDate;
-    }
+
   },
   methods: {
-    calculateTimeUntil() {
-      const diff = this.startDate - new Date();
-      return this.formatTime(new Date(diff));
-    },
-    calculateTimeLeft() {
-      const diff = this.endDate - new Date();
-      return this.formatTime(new Date(diff));
-    }
+
   },
   mounted() {
-    this.timeUntil = this.calculateTimeUntil();
-    this.timeLeft = this.calculateTimeLeft();
-    setInterval(() => {
-      this.timeUntil = this.calculateTimeUntil();
-      this.timeLeft = this.calculateTimeLeft();
-    }, 1000);
+
   }
 }
 </script>
 
 <template>
-<div class="h-screen flex justify-center items-center pb-24">
-  <div class="font-glow">
-    <div v-if="hasNotYetStarted">
-      <h2>Début dans {{ timeUntil }}</h2>
-    </div>
-    <div v-else>
-      <h1 class="text-center">La nuit de l'info a commencé !</h1>
-      <h2>Fin dans {{ timeLeft }}</h2>
-    </div>
+<div class="min-h-screen bg-gradient">
+  <div class="h-screen flex justify-center items-center bg-water">
+    <h1 class="text-4xl font-stylish font-black text-white text-glow">
+      Les océans sont précieux. Protégons-les.
+    </h1>
   </div>
+  <div class="h-screen content"></div>
 </div>
 </template>
 
 <style scoped>
+.bg-gradient{
+  background-color: #013240;
+  background-image: linear-gradient(180deg, #013240, #05202E);
+}
 
+.bg-water{
+  background-color: #05202E;
+  background-image: url('@assets/waterSurface.jpg');
+  background-size: cover;
+}
+
+.text-glow{
+  text-shadow: 0 0 50px var(--glow-color);
+}
+
+.content{
+  box-shadow: -1px 0 40px 0 rgba(2, 34, 44, 0.9);
+}
 </style>

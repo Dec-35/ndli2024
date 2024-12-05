@@ -10,9 +10,7 @@ export default {
 </script>
 
 <template>
-  <Header />
-
-  <main class="mt-16 p-4">
+  <main>
     <router-view />
   </main>
 </template>
