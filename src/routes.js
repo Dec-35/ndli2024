@@ -6,6 +6,11 @@ const routes = [
     name: 'Home',
     component: () => import('@views/Home.vue'),
   },
+  {
+    path: '/',
+    name: 'EccoTheCaptcha',
+    component: () => import('@views/EccoTheCaptcha.vue'),
+  },
 ]
 
 const router = createRouter({
