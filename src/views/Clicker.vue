@@ -24,6 +24,7 @@ import bopLayer from '@/assets/clicker/music/bopLayer.mp3'
 import chantTibetain from '@/assets/clicker/music/chantTibetain.mp3'
 import PomPom from '@/assets/clicker/music/PomPomBomJfaislesbacks.mp3'
 import siflement from '@/assets/clicker/music/siflement.mp3'
+import BouncingShip from '@/components/Clicker/BouncingShip.vue'
 
 export default {
   name: 'Clicker',
@@ -43,6 +44,7 @@ export default {
     }
   },
   components: {
+    BouncingShip,
     Upgrade,
   },
   computed: {
@@ -169,6 +171,14 @@ export default {
         this.startRandomSFX([chantTibetain, siflement, bopLayer])
         this.volume = 'medium'
       }
+    },
+    playCollisonAudio(){
+      console.log('collision')
+    },
+    looseGame(){
+      alert('Oh non, vous avez touché le bateau de récolte des déchets ! Et franchement, c\'était pas si amusant que ça, donc autant éviter de jeter des bouteilles dans la mer, c\'est pas cool pour les poissons et les tortues :(')
+      this.$router.push('/')
+
     }
   },
   mounted() {
@@ -196,7 +206,7 @@ export default {
       </div>
       <div class="flex-grow h-full ">
         <!-- Partie centrale avec bouton et autres conneries -->
-        <div class="relative flex flex-grow h-full justify-center items-center">
+        <div class="relative flex flex-grow h-full justify-center items-center" id="batoContainer">
           <div
             v-if="circleMinusDisplay"
             class="circle-minus z-10"
@@ -221,7 +231,10 @@ export default {
               class="group-hover:opacity-100 transition-opacity bg-gray-800 px-1 text-sm text-gray-100 rounded-md absolute left-1/2 -translate-x-1/2 translate-y-full opacity-0 m-4 mx-auto"
               >{{ score }}</span
             >
+
           </div>
+          <BouncingShip @click="looseGame" @play-collision-audio="playCollisonAudio" />
+
         </div>
       </div>
     </div>
@@ -246,6 +259,7 @@ export default {
             :quantity="upgrade.quantity"
             :audio="upgrade.soundOnHover"
             @click="buyUpgrade(upgrade.name, upgrade.price)"
+            @play-audio="playAudio"
           />
         </div>
         <!-- Contenu (liste upgrades) -->

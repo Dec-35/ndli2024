@@ -1,9 +1,7 @@
 <script>
-import SoundsMixin from '@/mixins/SoundsMixin.js'
 
 export default {
   name: 'Upgrade',
-  mixins: [SoundsMixin],
   props: {
     name: {
       type: String,
@@ -30,6 +28,12 @@ export default {
       required: true,
     }
   },
+  emits: ['play-audio'],
+  methods:{
+    playAudio(audio){
+      this.$emit('play-audio', audio)
+    }
+  }
 }
 </script>
 
