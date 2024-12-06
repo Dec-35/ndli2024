@@ -315,6 +315,7 @@ export default {
         <modal ref="homeModal" title="Attention">
           <h1>Veuillez activer le son pour une meilleure expérience !</h1>
           <h1>Attention, certains sons peuvent être fort !</h1>
+          <h1>La moindre petite imperfection est voulue :)</h1>
         </modal>
         <modal title="Ajustement du volume" ref="volumeModal">
           <h1>Entrez le volume</h1>
