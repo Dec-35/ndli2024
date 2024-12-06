@@ -10,7 +10,7 @@ export default {
       y_incr: 1,
     }
   },
-  emits: ['play-collision-audio','click'],
+  emits: ['click'],
   methods: {
     init() {
       this.$refs.bato.style.position = 'absolute'
@@ -40,8 +40,6 @@ export default {
         // reverse y_incr
         this.y_incr = -this.y_incr
       }
-
-      this.$emit('play-collision-audio')
     },
 
     animate() {

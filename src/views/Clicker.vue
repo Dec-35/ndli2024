@@ -172,11 +172,9 @@ export default {
         this.volume = 'medium'
       }
     },
-    playCollisonAudio(){
-      console.log('collision')
-    },
     looseGame(){
-      alert('Oh non, vous avez touché le bateau de récolte des déchets ! Et franchement, c\'était pas si amusant que ça, donc autant éviter de jeter des bouteilles dans la mer, c\'est pas cool pour les poissons et les tortues :(')
+      this.playAudio(PointPoint)
+      alert('Oh non, vous avez touché le bateau de récolte des déchets ! Et franchement, c\'était pas si amusant que ça, donc autant éviter de jeter des bouteilles dans la mer, c\'est pas cool pour les poissons et les tortues :( \n Votre score est de : ' + this.score)
       this.$router.push('/')
 
     }
@@ -233,7 +231,7 @@ export default {
             >
 
           </div>
-          <BouncingShip @click="looseGame" @play-collision-audio="playCollisonAudio" />
+          <BouncingShip @click="looseGame" />
 
         </div>
       </div>
