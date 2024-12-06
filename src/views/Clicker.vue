@@ -39,7 +39,7 @@ export default {
       interval: 1000,
       circleMinusDisplay: false,
       bottleRotation: 0,
-      volume: 'medium'
+      volume: 'high'
     }
   },
   components: {
@@ -158,18 +158,22 @@ export default {
       this.playAudio(VolumeUp)
       if(this.volume === 'medium'){
         this.volume = 'high'
-        this.interval = 2000
+        this.globalVolume = 1
       } else if(this.volume === 'high'){
         this.volume = 'mute'
-        this.interval = 10000
+        this.globalVolume = 0
+        this.stopMusic()
       } else {
+        this.globalVolume = 0.5
+        this.playMusic([bloupbloupFond, beatBox, PomPom])
+        this.startRandomSFX([chantTibetain, siflement, bopLayer])
         this.volume = 'medium'
-        this.interval = 1000
       }
     }
   },
   mounted() {
     this.playMusic([bloupbloupFond, beatBox, PomPom])
+    this.startRandomSFX([chantTibetain, siflement, bopLayer])
     this.updateIntevral()
   },
   beforeUnmount() {
