@@ -316,7 +316,7 @@ export default {
           <h1>Veuillez activer le son pour une meilleure expérience !</h1>
           <h1>Attention, certains sons peuvent être fort !</h1>
         </modal>
-        <modal ref="volumeModal">
+        <modal title="Ajustement du volume" ref="volumeModal">
           <h1>Entrez le volume</h1>
           <input class="border-2 px-2 my-2 rounded-sm" type="text" placeholder="Entrez la valeur ici" id="in"/>
           <button @click="getValue()" class="ml-3 bg-gray-300 rounded-sm px-2">Valider</button>
