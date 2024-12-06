@@ -31,10 +31,13 @@ export default {
 
 <template>
   <header
-    class="fixed top-0 left-0 w-screen flex h-14 justify-between items-center px-4 text-white"
+    class="fixed top-0 left-0 w-screen flex h-14 gap-4 items-center px-4 text-white"
   >
     <router-link to="/" class="nav-link">
       Accueil
+    </router-link>
+    <router-link to="/clicker" class="nav-link">
+      Bottle Clicker
     </router-link>
   </header>
 </template>
@@ -53,18 +56,17 @@ header {
     content: '';
     display: block;
     width: 5px;
-    min-width: 5px;
     height: 2px;
     background-color: white;
-    transition: width 0s;
+    transition: width 0.3s;
   }
 
   &.router-link-active::after{
     width: v-bind(progress);
+    min-width: 5px;
   }
 
   &:hover::after{
-    transition: width 0.3s;
     width: 100%;
   }
 }
