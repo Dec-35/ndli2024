@@ -32,9 +32,9 @@ export default {
       class="h-screen flex flex-col justify-center items-center bg-water text-white"
     >
       <h1 class="text-4xl font-stylish font-black text-glow mb-4">
-        Les océans sont précieux. Protégons-les.
+        Les océans sont précieux. Protégeons-les.
       </h1>
-      <p class="text-xs">Scroll down</p>
+      <p class="text-xs">Défiler la page pour en savoir plus</p>
     </div>
     <div
       class="min-h-screen py-20 content flex justify-center gap-10 items-center"

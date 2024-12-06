@@ -54,13 +54,13 @@ header {
   &::after {
     content: '';
     display: block;
-    width: 5px;
+    width: 0;
     height: 2px;
     background-color: white;
     transition: width 0.3s;
   }
 
-  &.router-link-active::after {
+  &.router-link-exact-active::after {
     width: v-bind(progress);
     min-width: 5px;
   }
