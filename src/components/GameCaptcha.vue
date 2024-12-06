@@ -142,6 +142,10 @@ export default {
 
 .game-title {
   margin-bottom: 20px;
+  font-family: 'Press Start 2P', sans-serif;
+  text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.7);
+  color: #ffc15a;
+  -webkit-text-stroke: 0.25px #0000;
 }
 
 .game-content {

@@ -81,8 +81,8 @@ export default {
   text-align: center;
   font-family: 'Press Start 2P', sans-serif;
   text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.7);
-  color: #000dff8e;
-  -webkit-text-stroke: 2px #ffffff;
+  color: #ffc15a;
+  -webkit-text-stroke: 2px #0000;
 }
 
 .button-container {
