@@ -132,16 +132,16 @@ export default {
 
 <template>
   <div class="h-screen flex overflow-hidden select-none pt-14">
-    <div class="bg-blue-500 w-[65%]">
-      <div class="bg-green-500 w-full h-[50px] px-10 flex justify-between">
+    <div class="content-color w-[65%]">
+      <div class="header-color w-full h-[50px] px-10 flex justify-between">
         <!-- Header -->
         <button>Aaaa</button>
-        <p class="p-2 text-2xl">Polluons l'océan !</p>
+        <h4 class="p-2">Polluons l'océan !</h4>
         <button>Aaaa</button>
       </div>
-      <div>
+      <div class="flex-grow h-full ">
         <!-- Partie centrale avec bouton et autres conneries -->
-        <div class="relative h-screen flex justify-center items-center">
+        <div class="relative flex flex-grow h-full justify-center items-center">
           <div
             v-if="circleMinusDisplay"
             class="circle-minus z-10"
@@ -157,9 +157,9 @@ export default {
             @click="circleClicked"
           ></div>
           <div class="group flex relative">
-            <span class="text-9xl text-center">{{ score.toString(16) }}
-              <p class = "text-center text-5xl" v-if="score==0">Bouteille à la mer</p>
-              <p class = "text-center text-5xl" v-else>Bouteilles à la mer</p>
+            <span class="text-9xl text-center font-black">{{ score.toString(16) }}
+              <p class = "text-center text-2xl font-bold" v-if="score===0">Bouteille à la mer</p>
+              <p class = "text-center text-2xl font-bold" v-else>Bouteilles à la mer</p>
             </span>
             
             <span
@@ -170,15 +170,15 @@ export default {
         </div>
       </div>
     </div>
-    <div class="bg-red-500 w-[35%]">
+    <div class="upgrades-color w-[35%]">
       <!-- Panneau latéral avec les upgrades -->
       <div
-        class="bg-green-500 w-full h-[50px] px-10 flex justify-center items-center"
+        class="header-color w-full h-[50px] px-10 flex justify-center items-center"
       >
         <!-- Header upgrades -->
         <h1>Upgrades</h1>
       </div>
-      <div class="flex flex-col p-5 gap-4">
+      <div class="flex flex-col p-3 gap-3 overflow-y-auto upgrades-list">
         <div v-for="upgrade in upgrades" :key="upgrade.name">
           <Upgrade
             class="cursor-pointer"
@@ -205,6 +205,7 @@ export default {
   background-image: url('@assets/clicker/plastic-bottle.png');
   background-size: cover;
   rotate: v-bind(bottleRotation);
+  filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
 
   cursor: pointer;
 }
@@ -217,4 +218,32 @@ export default {
   background-color: green;
   cursor: pointer;
 }
+
+.header-color {
+  background-color: #2c3e50;
+  color: white;
+}
+
+.content-color {
+  background-color: #34495e;
+  background-image: url('@assets/waterSurface.jpg');
+  background-size: 2000px;
+  background-position: -250px -280px;
+  color: white;
+}
+
+.upgrades-color {
+  background-color: #253544;
+  border-left: 2px solid #2c3e50;
+}
+
+:deep(.upgrade-card){
+  background-color: #34495e;
+  color: white;
+}
+
+.upgrades-list{
+  height: calc(100% - 50px);
+}
+
 </style>

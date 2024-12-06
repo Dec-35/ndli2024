@@ -27,7 +27,7 @@ export default {
 </script>
 
 <template>
-  <div class="bg-yellow-500 p-2 rounded-md flex gap-3">
+  <div class="upgrade-card p-2 rounded-md flex gap-3">
     <div>
       <img :src="image" alt="UpgradeLogo" />
     </div>
