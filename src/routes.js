@@ -11,10 +11,11 @@ const routes = [
     name: 'EccoTheCaptcha',
     component: () => import('@views/EccoTheCaptcha.vue'),
   },
+  {
     path: '/clicker',
     name: 'Clicker',
     component: () => import('@views/Clicker.vue'),
-  }
+  },
 ]
 
 const router = createRouter({
