@@ -3,17 +3,21 @@
     <h1 class="page-title">Ecco the Captcha</h1>
     <div class="button-container">
       <button class="btn" @click="openModal">Règles</button>
-      <button class="btn">Jouer</button>
+      <button class="btn" @click="startGame">Jouer</button>
     </div>
     <div class="component-container">
-      <GameCaptcha />
+      <!-- Afficher le jeu seulement si 'gameStarted' est vrai -->
+      <GameCaptcha v-if="gameStarted" />
     </div>
 
     <!-- Fenêtre modale -->
     <div v-if="isModalVisible" class="modal-overlay" @click="closeModal">
       <div class="modal">
         <h2>Règles du jeu</h2>
-        <p>Pour gagner et accéder au jeu, prouvez que vous n'êtes pas un robot en récupérant toutes les bouteilles en plastique dans l'ordre indiqué !</p>
+        <p>
+          Pour gagner et accéder au jeu, prouvez que vous n'êtes pas un robot en
+          récupérant toutes les bouteilles en plastique dans l'ordre indiqué !
+        </p>
         <button class="btn-close" @click="closeModal">Fermer</button>
       </div>
     </div>
@@ -27,20 +31,26 @@ export default {
   name: 'EccoTheCaptcha',
   data() {
     return {
-      isModalVisible: false,  // Etat pour la fenêtre modale
-    };
+      isModalVisible: false, // Etat pour la fenêtre modale
+      gameStarted: false, // Etat pour savoir si le jeu a commencé
+    }
   },
   methods: {
     openModal() {
-      this.isModalVisible = true;  // Ouvre la fenêtre modale
+      this.isModalVisible = true // Ouvre la fenêtre modale
     },
     closeModal() {
-      this.isModalVisible = false;  // Ferme la fenêtre modale
+      this.isModalVisible = false // Ferme la fenêtre modale
+    },
+    startGame() {
+      this.gameStarted = true
     },
   },
-
+  components: {
+    GameCaptcha,
+  },
   mounted() {},
-};
+}
 </script>
 
 <style scoped>
@@ -68,7 +78,6 @@ export default {
   text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.7);
   color: #000dff8e;
   -webkit-text-stroke: 2px #ffffff;
-  text-stroke: 2px #ffffff;
 }
 
 .button-container {
@@ -129,7 +138,11 @@ export default {
 }
 
 .modal {
-  background-color: rgb(123, 121, 121); /* Fenêtre modale avec légère transparence */
+  background-color: rgb(
+    123,
+    121,
+    121
+  ); /* Fenêtre modale avec légère transparence */
   padding: 80px;
   width: 600px;
   text-align: center;
@@ -147,12 +160,12 @@ export default {
 }
 
 .btn-close {
-  background-color:#000dff8e;
+  background-color: #000dff8e;
   color: #ffffff;
-  border: 2px solid #ffffff;  /* Contour blanc */
+  border: 2px solid #ffffff; /* Contour blanc */
   padding: 10px 20px;
   cursor: pointer;
-  font-size:1rem;
+  font-size: 1rem;
 }
 
 .btn-close:hover {
