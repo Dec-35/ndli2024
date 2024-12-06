@@ -1,5 +1,10 @@
 <script>
 import Upgrade from '@/components/Clicker/Upgrade.vue'
+import lanceBouteilleImage from '@assets/clicker/pictos/lanceBouteille.png';
+import embaucherPote from '@assets/clicker/pictos/embaucherPote.png';
+import viderVoiture from '@assets/clicker/pictos/viderVoiture.png';
+import dechargerCamion from '@/assets/clicker/pictos/dechargerCamion.png';
+import larguerAvion from '@/assets/clicker/pictos/larguerAvion.png';
 
 export default {
   name: 'Clicker',
@@ -27,7 +32,7 @@ export default {
           name: 'Lancé de bouteille',
           price: 20,
           description: 'Augmente le nombre de bouteille générée par click de 1',
-          image: 'https://via.placeholder.com/75',
+          image: lanceBouteilleImage,
           quantity: 0,
           manualPowerUpgrade: 1,
         },
@@ -36,7 +41,7 @@ export default {
           price: 100,
           description:
             'Augmente le nombre de bouteille générée automatiquement de 1 par seconde',
-          image: 'https://via.placeholder.com/75',
+          image: embaucherPote,
           quantity: 0,
           autoPowerUpgrade: 1,
         },
@@ -45,7 +50,7 @@ export default {
           price: 5,
           description:
             'Augmente le nombre de bouteille générée automatiquement de 10 par seconde',
-          image: 'https://via.placeholder.com/75',
+          image: viderVoiture,
           quantity: 0,
           autoPowerUpgrade: 10,
         },
@@ -54,7 +59,7 @@ export default {
           price: 1000,
           description:
             'Augmente le nombre de bouteille générée automatiquement de 100 par seconde',
-          image: 'https://via.placeholder.com/75',
+          image: dechargerCamion,
           quantity: 0,
           autoPowerUpgrade: 100,
         },
@@ -63,7 +68,7 @@ export default {
           price: 2,
           description:
             'Augmente le nombre de bouteille générée automatiquement de 1000 par seconde',
-          image: 'https://via.placeholder.com/75',
+          image: larguerAvion,
           quantity: 0,
           autoPowerUpgrade: 1000,
         },

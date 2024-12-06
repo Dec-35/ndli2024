@@ -29,12 +29,12 @@ export default {
 <template>
   <div class="upgrade-card p-2 rounded-md flex gap-3">
     <div>
-      <img :src="image" alt="UpgradeLogo" />
+      <img :src="image" alt="UpgradeLogo" class="object-cover w-20" />
     </div>
     <div>
       <h2 class="text-base ">{{ name }} (x{{ quantity }})</h2>
       <p class="text-xs">{{ description }}</p>
-      <p>Prix : {{ price }} bouteilles</p>
+      <h4 class="mt-2">Prix : {{ price }} bouteilles</h4>
     </div>
   </div>
 </template>
