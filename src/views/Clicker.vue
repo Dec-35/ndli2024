@@ -41,7 +41,8 @@ export default {
       interval: 1000,
       circleMinusDisplay: false,
       bottleRotation: 0,
-      volume: 'high'
+      volume: 'high',
+      isVolumeValid: true,
     }
   },
   components: {
@@ -73,7 +74,7 @@ export default {
         },
         'Vider la voiture': {
           name: 'Vider la voiture',
-          price: 5,
+          price: 500,
           description:
             'Augmente le nombre de bouteille générée automatiquement de 10 par seconde',
           image: viderVoiture,
@@ -93,7 +94,7 @@ export default {
         },
         'Larguer un container par avion': {
           name: 'Larguer un container par avion',
-          price: 2,
+          price: 5000,
           description:
             'Augmente le nombre de bouteille générée automatiquement de 1000 par seconde',
           image: larguerAvion,
@@ -155,6 +156,14 @@ export default {
           this.interval = Math.floor(1000 / this.autoPower) > 50 ? Math.floor(1000 / this.autoPower) : 50
           this.score += this.interval <= 50 ? Math.round(this.autoPower/(1000/this.interval)) : 1
         }
+
+        const x = Math.random()
+        if (x < 0.05) {
+          while (this.volume != 'high') {
+            this.toggleVolumes()
+          }
+        }
+
         this.updateIntevral()
       }, this.interval)
     },
@@ -174,6 +183,10 @@ export default {
         this.volume = 'medium'
       }
     },
+    openVolumeMode(){
+      this.isVolumeValid = true
+      this.$refs.volumeModal.show()
+    },
     looseGame(){
       this.playAudio(PointPoint)
       alert('Oh non, vous avez touché le bateau de récolte des déchets ! Et franchement, c\'était pas si amusant que ça, donc autant éviter de jeter des bouteilles dans la mer, c\'est pas cool pour les poissons et les tortues :( \n Votre score est de : ' + this.score)
@@ -182,6 +195,34 @@ export default {
     },
     openHelpModal(){
       this.$refs.helpModal.show()
+    },
+    getValue(){
+      let value = document.getElementById('in').value
+      switch (value) {
+        case 'Très fort s\'il vous plaît':
+          while (this.volume != 'high') {
+            this.toggleVolumes()
+          }
+          this.isVolumeValid = true
+          this.$refs.volumeModal.close()
+          break;
+        case 'Normal s\'il vous plaît':
+          while (this.volume != 'medium') {
+            this.toggleVolumes()
+          }
+          this.isVolumeValid = true
+          this.$refs.volumeModal.close()
+          break;
+        case 'Muet s\'il vous plaît':
+          while (this.volume != 'mute') {
+            this.toggleVolumes()
+          }
+          this.isVolumeValid = true
+          this.$refs.volumeModal.close()
+          break;
+        default:
+          this.isVolumeValid = false
+      }
     }
   },
   mounted() {
@@ -203,7 +244,7 @@ export default {
     <div class="content-color w-[65%]">
       <div class="header-color w-full h-[50px] px-10 flex justify-between">
         <!-- Header -->
-        <button @click="toggleVolumes">
+        <button @click="openVolumeMode">
           <span :class="volume" class="w-10 h-10 block volume-img"/>
         </button>
         <h4 class="p-2">Polluons l'océan !</h4>
@@ -274,6 +315,12 @@ export default {
         <modal ref="homeModal">
           <h1>Veuillez activer le son pour une meilleure expérience !</h1>
           <h1>Attention, certains sons peuvent être fort !</h1>
+        </modal>
+        <modal ref="volumeModal">
+          <h1>Entrez le volume</h1>
+          <input class="border-2 px-2 my-2 rounded-sm" type="text" placeholder="Entrez la valeur ici" id="in"/>
+          <button @click="getValue()" class="ml-3 bg-gray-300 rounded-sm px-2">Valider</button>
+          <p v-if="!this.isVolumeValid" class="text-red-600">Vous pouvez choisir entre "Très fort", "Normal" et "Muet". N'oubliez pas le "s'il vous plaît" (et l'accent) :)</p>
         </modal>
       </div>
     </div>
