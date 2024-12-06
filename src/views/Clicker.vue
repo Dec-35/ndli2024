@@ -238,6 +238,7 @@ export default {
         <div v-for="upgrade in upgrades" :key="upgrade.name">
           <Upgrade
             class="cursor-pointer"
+            :class="{ 'disabled': score < upgrade.price }"
             :name="upgrade.name"
             :price="upgrade.price"
             :description="upgrade.description"
@@ -322,4 +323,10 @@ export default {
     mask-image: url('@/assets/clicker/pictos/Plus son.png');
   }
 }
+
+.disabled {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
 </style>
