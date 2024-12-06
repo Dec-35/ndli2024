@@ -188,6 +188,7 @@ export default {
     this.playMusic([bloupbloupFond, beatBox, PomPom])
     this.startRandomSFX([chantTibetain, siflement, bopLayer])
     this.updateIntevral()
+    this.$refs.homeModal.show()
 
   },
   beforeUnmount() {
@@ -269,6 +270,10 @@ export default {
         <!-- Contenu (liste upgrades) -->
         <modal ref="helpModal">
           <h1>Débrouille-toi :)</h1>
+        </modal>
+        <modal ref="homeModal">
+          <h1>Veuillez activer le son pour une meilleure expérience !</h1>
+          <h1>Attention, certains sons peuvent être fort !</h1>
         </modal>
       </div>
     </div>
