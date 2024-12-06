@@ -36,7 +36,7 @@
         <div
           ref="recaptcha"
           class="g-recaptcha"
-          data-sitekey="6LeU3pMqAAAAAOb2aGRSTd5-_WQm9lEqzqiH7iJ7"
+          data-sitekey="6Ld735MqAAAAAJODKDp93FV3CkYlAP8-X-wpGge-"
         ></div>
 
         <button @click="validateCaptcha" class="validate-btn">Continuer</button>
@@ -122,7 +122,7 @@ export default {
       wordLetters: [],
       letterCount: 0,
       showModal: false, // For controlling modal visibility
-      recaptchaSiteKey: '6LeU3pMqAAAAAOb2aGRSTd5-_WQm9lEqzqiH7iJ7', // Your reCAPTCHA site key
+      recaptchaSiteKey: '6Ld735MqAAAAAJODKDp93FV3CkYlAP8-X-wpGge-', // Your reCAPTCHA site key
     }
   },
   computed: {
@@ -247,7 +247,7 @@ export default {
       grecaptcha.ready(() => {
         // Execute the reCAPTCHA
         grecaptcha
-          .execute("6LeU3pMqAAAAAOb2aGRSTd5-_WQm9lEqzqiH7iJ7", { action: 'submit' })
+          .execute("6Ld735MqAAAAAJODKDp93FV3CkYlAP8-X-wpGge-", { action: 'submit' })
           .then((token) => {
             if (token) {
               // Réponse valide, masquer la modale et rediriger
