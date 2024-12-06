@@ -36,8 +36,9 @@
         <div
           ref="recaptcha"
           class="g-recaptcha"
-          :data-sitekey="recaptchaSiteKey"
+          data-sitekey="6Leh15MqAAAAAOlqWxhyHuxYXPFNjxjIZ9wKXGIG"
         ></div>
+
         <button @click="validateCaptcha" class="validate-btn">Continuer</button>
       </div>
     </div>
@@ -45,8 +46,6 @@
 </template>
 
 <script>
-import { onMounted, ref } from 'vue'
-
 import dolphinFirst from '@assets/dolphinFirst.jpg'
 import dolphinSecond from '@assets/dolphinSecond.jpg'
 
@@ -123,7 +122,7 @@ export default {
       wordLetters: [],
       letterCount: 0,
       showModal: false, // For controlling modal visibility
-      recaptchaSiteKey: 'your-recaptcha-site-key', // Your reCAPTCHA site key
+      recaptchaSiteKey: '6Leh15MqAAAAAOlqWxhyHuxYXPFNjxjIZ9wKXGIG', // Your reCAPTCHA site key
     }
   },
   computed: {
@@ -232,16 +231,34 @@ export default {
         }
       }
     },
+    initializeRecaptcha() {
+      // Ensure grecaptcha is ready before executing
+      grecaptcha.ready(() => {
+        // Initialize reCAPTCHA with your site key
+        this.recaptcha = grecaptcha // Store the grecaptcha instance if needed later
+      })
+    },
+    onCaptchaSuccess(response) {
+      // Handle successful CAPTCHA verification
+      console.log('reCAPTCHA success:', response)
+    },
     validateCaptcha() {
-      const recaptchaResponse = grecaptcha.getResponse()
-      if (recaptchaResponse) {
-        this.showModal = false
-        alert("Captcha validé ! Vous allez être redirigé vers l'accueil.")
-        // Redirection vers l'accueil
-        window.location.href = '/'
-      } else {
-        alert('Veuillez valider le captcha pour continuer.')
-      }
+      // Récupérer la réponse du reCAPTCHA après l'initialisation
+      grecaptcha.ready(() => {
+        // Execute the reCAPTCHA
+        grecaptcha
+          .execute("6Leh15MqAAAAAOlqWxhyHuxYXPFNjxjIZ9wKXGIG", { action: 'submit' })
+          .then((token) => {
+            if (token) {
+              // Réponse valide, masquer la modale et rediriger
+              this.showModal = false
+              alert("Captcha validé ! Vous allez être redirigé vers l'accueil.")
+              window.location.href = '/' // Redirection vers la page d'accueil
+            } else {
+              alert('Veuillez valider le captcha pour continuer.')
+            }
+          })
+      })
     },
   },
   mounted() {
@@ -252,6 +269,12 @@ export default {
     const script = document.createElement('script')
     script.src = `https://www.google.com/recaptcha/api.js?render=explicit`
     script.async = true
+    script.onload = () => {
+      // Ensure reCAPTCHA is initialized after the script has loaded
+      grecaptcha.ready(() => {
+        this.initializeRecaptcha() // Now this will only be called after the script is ready
+      })
+    }
     document.body.appendChild(script)
   },
   beforeUnmount() {
