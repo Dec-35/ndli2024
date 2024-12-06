@@ -14,20 +14,42 @@
 </template>
 
 <script>
-import dolphinFirst from '@/assets/dolphinFirst.jpg'
-import dolphinSecond from '@/assets/dolphinSecond.jpg'
-import wasteImage from '@/assets/waste.jpg'
+import dolphinFirst from '@assets/dolphinFirst.jpg'
+import dolphinSecond from '@assets/dolphinSecond.jpg'
+import letterA from '@assets/letters/A.png'
+import letterB from '@assets/letters/B.png'
+import letterC from '@assets/letters/C.png'
+import letterD from '@assets/letters/D.png'
+import letterE from '@assets/letters/E.png'
+import letterF from '@assets/letters/F.png'
+import letterG from '@assets/letters/G.png'
+import letterH from '@assets/letters/H.png'
+import letterI from '@assets/letters/I.png'
+import letterJ from '@assets/letters/J.png'
+import letterK from '@assets/letters/K.png'
+import letterL from '@assets/letters/L.png'
+import letterM from '@assets/letters/M.png'
+import letterN from '@assets/letters/N.png'
+import letterO from '@assets/letters/O.png'
+import letterP from '@assets/letters/P.png'
+import letterQ from '@assets/letters/Q.png'
+import letterR from '@assets/letters/R.png'
+import letterS from '@assets/letters/S.png'
+import letterT from '@assets/letters/T.png'
+import letterU from '@assets/letters/U.png'
+import letterV from '@assets/letters/V.png'
+import letterW from '@assets/letters/W.png'
+import letterX from '@assets/letters/X.png'
+import letterY from '@assets/letters/Y.png'
+import letterZ from '@assets/letters/Z.png'
 
 export default {
   name: 'GameCaptcha',
   data() {
     return {
-      position: { x: 0, y: 0 },
+      position: { x: 0, y: 125 },
       step: 10,
-      imageUrls: [
-        dolphinFirst,
-        dolphinSecond,
-      ],
+      imageUrls: [dolphinFirst, dolphinSecond],
       currentImageIndex: 0,
       flipImage: false,
       maxX: 525,
@@ -36,6 +58,35 @@ export default {
       objectHeight: 31,
       targetPosition: { x: 0, y: 0 },
       score: 0,
+      letterImages: [
+        letterA,
+        letterB,
+        letterC,
+        letterD,
+        letterE,
+        letterF,
+        letterG,
+        letterH,
+        letterI,
+        letterJ,
+        letterK,
+        letterL,
+        letterM,
+        letterN,
+        letterO,
+        letterP,
+        letterQ,
+        letterR,
+        letterS,
+        letterT,
+        letterU,
+        letterV,
+        letterW,
+        letterX,
+        letterY,
+        letterZ,
+      ],
+      currentLetterImage: '',
     }
   },
   computed: {
@@ -55,7 +106,7 @@ export default {
       return {
         left: `${this.targetPosition.x}px`,
         top: `${this.targetPosition.y}px`,
-        backgroundImage: `url(${wasteImage})`,
+        backgroundImage: `url(${this.currentLetterImage})`,
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
       }
@@ -65,14 +116,15 @@ export default {
     moveObject(event) {
       switch (event.key) {
         case 'ArrowUp':
-          if (this.position.y > 0) {
+          if (this.position.y > 125) {
             this.position.y -= this.step
           }
           break
         case 'ArrowDown':
-          if (this.position.y < this.maxY) {
+          if (this.position.y + this.objectHeight < 300) {
             this.position.y += this.step
           }
+
           break
         case 'ArrowLeft':
           if (this.position.x > 0) {
@@ -90,14 +142,19 @@ export default {
 
       this.currentImageIndex =
         (this.currentImageIndex + 1) % this.imageUrls.length
-
       this.checkCollision()
     },
 
     getRandomPosition() {
       const randomX = Math.floor(Math.random() * (this.maxX - 60))
-      const randomY = Math.floor(Math.random() * (this.maxY - 60))
+
+      // Modifie cette ligne pour obtenir un nombre entre 125 et 300 pour Y
+      const randomY = Math.floor(Math.random() * (250 - 125 + 1)) + 125
+
       this.targetPosition = { x: randomX, y: randomY }
+
+      const randomIndex = Math.floor(Math.random() * this.letterImages.length)
+      this.currentLetterImage = this.letterImages[randomIndex]
     },
 
     checkCollision() {
@@ -106,8 +163,8 @@ export default {
       const dolphinTop = this.position.y
       const dolphinBottom = this.position.y + this.objectHeight
 
-      const wasteWidth = 75
-      const wasteHeight = 31
+      const wasteWidth = 31
+      const wasteHeight = 75
 
       const wasteLeft = this.targetPosition.x
       const wasteRight = this.targetPosition.x + wasteWidth
@@ -121,6 +178,7 @@ export default {
         dolphinTop < wasteBottom
       ) {
         this.score++
+        console.log('Le dauphin a mangé le déchet! Score:', this.score)
         this.getRandomPosition()
       }
     },
@@ -128,6 +186,7 @@ export default {
   mounted() {
     window.addEventListener('keydown', this.moveObject)
     this.getRandomPosition()
+    window.addEventListener('keydown', this.moveObject)
   },
   beforeUnmount() {
     window.removeEventListener('keydown', this.moveObject)
@@ -154,7 +213,9 @@ export default {
   height: 300px;
   margin: 0 auto;
   border: 2px solid #ccc;
-  background-color: #f9f9f9;
+  background-image: url('@assets/background.png'); /* Ajout de l'image en fond */
+  background-size: cover; /* Pour couvrir tout l'espace */
+  background-position: center; /* Centre l'image */
   overflow: hidden;
 }
 
@@ -165,8 +226,8 @@ export default {
 
 .game-target {
   position: absolute;
-  width: 75px;
-  height: 31px;
+  width: 31px;
+  height: 75px;
   border-radius: 50%;
 }
 </style>
