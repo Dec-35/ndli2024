@@ -3,7 +3,8 @@ export default {
     return {
       currentSong: null,
       currentSFX: null,
-      globalVolume: 1
+      globalVolume: 1,
+      timeOut: null,
     }
   },
   methods: {
@@ -42,6 +43,7 @@ export default {
       this.currentSong = null
       this.currentSFX.pause()
       this.currentSFX = null
+      clearTimeout(this.timeOut)
     },
     startRandomSFX(listOfSFX){
       const randomIndex = Math.floor(Math.random() * listOfSFX.length)
@@ -56,8 +58,8 @@ export default {
 
       this.currentSFX.play().then(() => {
         this.currentSFX.addEventListener('ended', () => {
-          const randomTimeOut = Math.random() * 10000
-          setTimeout(() => {
+          const randomTimeOut = Math.random() + 0.5 * 20000
+          this.timeOut = setTimeout(() => {
             this.startRandomSFX(listOfSFX)
           }, randomTimeOut)
         })
