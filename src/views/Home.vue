@@ -1,5 +1,4 @@
 <script>
-
 import Header from '@/components/Header.vue'
 
 export default {
@@ -113,15 +112,14 @@ export default {
       </div>
     </div>
   </div>
-</div>
 </template>
 
 <style scoped>
-.bg-gradient{
-  background-image: linear-gradient(180deg, #02767a, #05202E);
+.bg-gradient {
+  background-image: linear-gradient(180deg, #02767a, #05202e);
 }
 
-.bg-water{
+.bg-water {
   /*background-color: #05202E;*/
   background-image: url('@assets/waterSurface.jpg');
   background-size: 2000px;
@@ -129,11 +127,11 @@ export default {
   background-repeat: repeat-x;
 }
 
-.text-glow{
+.text-glow {
   text-shadow: 0 0 50px var(--glow-color);
 }
 
-.content{
+.content {
   box-shadow: -1px 0 60px 4px #005052;
 
   .desc-content{
@@ -141,7 +139,7 @@ export default {
   }
 }
 
-.body-img{
+.body-img {
   width: 250px;
 }
 
