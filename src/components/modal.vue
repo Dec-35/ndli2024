@@ -1,6 +1,12 @@
 <script>
 export default {
   name: 'modal',
+  props:{
+    title: {
+      type: String,
+      default: ''
+    }
+  },
   data() {
     return {
       display: false
@@ -27,7 +33,8 @@ export default {
 <template>
   <div class="modal" v-if="display" @click="handleOutsideClick">
     <div class="modal-content">
-      <div class="flex justify-end">
+      <div class="flex justify-between mb-2 mt-1">
+        <h4>{{title}}</h4>
         <span class="close cursor-pointer font-medium text-black text-lg" @click="close">&times;</span>
       </div>
       <slot></slot>
