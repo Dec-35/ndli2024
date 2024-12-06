@@ -6,6 +6,11 @@ const routes = [
     name: 'Home',
     component: () => import('@views/Home.vue'),
   },
+  {
+    path: '/clicker',
+    name: 'Clicker',
+    component: () => import('@views/Clicker.vue'),
+  }
 ]
 
 const router = createRouter({
