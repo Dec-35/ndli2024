@@ -53,18 +53,17 @@ header {
     content: '';
     display: block;
     width: 5px;
-    min-width: 5px;
     height: 2px;
     background-color: white;
-    transition: width 0s;
+    transition: width 0.3s;
   }
 
   &.router-link-active::after{
     width: v-bind(progress);
+    min-width: 5px;
   }
 
   &:hover::after{
-    transition: width 0.3s;
     width: 100%;
   }
 }
