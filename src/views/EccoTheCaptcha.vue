@@ -10,7 +10,7 @@
     </div>
     <div v-else class="image-accueil">
       <img
-        src="@/assets/ecco/DauphinEcranAccueil.png"
+        src="@/assets/Ecco/DauphinEcranAccueil.png"
         alt="Image dauphin accueil"
       />
     </div>
