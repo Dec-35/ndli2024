@@ -1,29 +1,17 @@
 # ndli2024
 
-This template should help get you started developing with Vue 3 in Vite.
+Repo git de la Team Heho
 
-## Recommended IDE Setup
+Site déployé : https://ndli2024.vercel.app
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+Membres : Mériadec Legal, Loan Benoît, Théo Grenet, Nathan Hameau, Nathaël Martinelle, Eloïse Prouteau Queffelec, Timéo Cherbonnel, Loryne Laffea Didot.
 
-## Customize configuration
+# Défis
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+- Intégrer du rétro gaming (Ecco the captcha)
+- Le Captcha ludique (Ecco the captcha)
+- Le Cookie Cauchemar (Bottle Clicker)
 
-## Project Setup
+Nuit de l'info 2024 Campus de Laval
 
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
+*Toutes icônes utilisées ont été générées avec Stable Diffusion en local sur nos machines ou dessinées à la main.*
