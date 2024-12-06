@@ -5,12 +5,13 @@
       <button class="btn" @click="openModal">Règles</button>
       <button class="btn" @click="startGame">Jouer</button>
     </div>
-    <div class="component-container">
-      <!-- Afficher le jeu seulement si 'gameStarted' est vrai -->
-      <GameCaptcha v-if="gameStarted" />
+    <div v-if="gameStarted" class="component-container">
+      <GameCaptcha/>
+    </div>
+    <div v-else class="image-accueil">
+      <img src="@assets/DauphinEcranAccueil.png" alt="Image dauphin accueil" />
     </div>
 
-    <!-- Fenêtre modale -->
     <div v-if="isModalVisible" class="modal-overlay" @click="closeModal">
       <div class="modal">
         <h2>Règles du jeu</h2>
@@ -29,31 +30,30 @@ import GameCaptcha from '@components/GameCaptcha.vue'
 
 export default {
   name: 'EccoTheCaptcha',
+
   data() {
     return {
-      isModalVisible: false, // Etat pour la fenêtre modale
-      gameStarted: false, // Etat pour savoir si le jeu a commencé
+      isModalVisible: false, 
+      gameStarted: false,
     }
-  },
-  
-  components: {
-    GameCaptcha,
   },
 
   methods: {
     openModal() {
-      this.isModalVisible = true // Ouvre la fenêtre modale
+      this.isModalVisible = true
     },
     closeModal() {
-      this.isModalVisible = false // Ferme la fenêtre modale
+      this.isModalVisible = false 
     },
     startGame() {
-      this.gameStarted = true
+      this.gameStarted = true;
     },
   },
+
   components: {
     GameCaptcha,
   },
+
   mounted() {},
 }
 </script>
@@ -115,6 +115,23 @@ export default {
   align-items: center;
 }
 
+.image-accueil {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+}
+
+.image-accueil img {
+  width: 100%;
+  height: auto;
+  max-width: 400px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
 .rectangle {
   width: 100%;
   height: 100%;
@@ -128,14 +145,13 @@ export default {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Style pour la fenêtre modale */
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(114, 104, 104, 0.5); /* Fond sombre avec transparence */
+  background: rgba(114, 104, 104, 0.5); 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -143,16 +159,12 @@ export default {
 }
 
 .modal {
-  background-color: rgb(
-    123,
-    121,
-    121
-  ); /* Fenêtre modale avec légère transparence */
+  background-color: rgb(123, 121, 121); 
   padding: 80px;
   width: 600px;
   text-align: center;
-  color: #ffffff; /* Texte noir */
-  border: 2px solid #aaa; /* Bordure sans arrondi */
+  color: #ffffff;
+  border: 2px solid #aaa;
 }
 
 .modal h2 {
@@ -167,7 +179,7 @@ export default {
 .btn-close {
   background-color: #000dff8e;
   color: #ffffff;
-  border: 2px solid #ffffff; /* Contour blanc */
+  border: 2px solid #ffffff; 
   padding: 10px 20px;
   cursor: pointer;
   font-size: 1rem;
