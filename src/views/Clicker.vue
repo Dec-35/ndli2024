@@ -14,6 +14,7 @@ export default {
       gameInterval: null,
       interval: 1000,
       circleMinusDisplay: false,
+      bottleRotation: 0,
     }
   },
   components: {
@@ -77,6 +78,8 @@ export default {
       if (!this.circleMinusDisplay) {
         this.circleMinusDisplay = true
       }
+      this.bottleRotation = x % 360 + 'deg'
+
     },
     moveMinusCircle() {
       this.bottleMinusPosition = this.bottlePosition
@@ -128,7 +131,7 @@ export default {
 </script>
 
 <template>
-  <div class="h-screen flex overflow-hidden select-none">
+  <div class="h-screen flex overflow-hidden select-none pt-14">
     <div class="bg-blue-500 w-[65%]">
       <div class="bg-green-500 w-full h-[50px] px-10 flex justify-between">
         <!-- Header -->
@@ -196,10 +199,13 @@ export default {
 <style scoped>
 .circle {
   position: absolute;
-  width: 50px;
-  height: 50px;
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
-  background-color: red;
+  background-image: url('@assets/clicker/plastic-bottle.png');
+  background-size: cover;
+  rotate: v-bind(bottleRotation);
+
   cursor: pointer;
 }
 
