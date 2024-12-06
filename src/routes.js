@@ -7,10 +7,15 @@ const routes = [
     component: () => import('@views/Home.vue'),
   },
   {
+    path: '/EccoTheCaptcha',
+    name: 'EccoTheCaptcha',
+    component: () => import('@views/EccoTheCaptcha.vue'),
+  },
+  {
     path: '/clicker',
     name: 'Clicker',
     component: () => import('@views/Clicker.vue'),
-  }
+  },
 ]
 
 const router = createRouter({

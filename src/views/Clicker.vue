@@ -309,10 +309,10 @@ export default {
           />
         </div>
         <!-- Contenu (liste upgrades) -->
-        <modal ref="helpModal">
+        <modal ref="helpModal" title="Aide">
           <h1>Débrouille-toi :)</h1>
         </modal>
-        <modal ref="homeModal">
+        <modal ref="homeModal" title="Attention">
           <h1>Veuillez activer le son pour une meilleure expérience !</h1>
           <h1>Attention, certains sons peuvent être fort !</h1>
         </modal>
