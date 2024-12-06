@@ -30,6 +30,11 @@ export default {
       isModalVisible: false,  // Etat pour la fenêtre modale
     };
   },
+  
+  components: {
+    GameCaptcha,
+  },
+
   methods: {
     openModal() {
       this.isModalVisible = true;  // Ouvre la fenêtre modale
