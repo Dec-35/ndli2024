@@ -6,7 +6,7 @@
       <button class="btn">Jouer</button>
     </div>
     <div class="component-container">
-      <div class="rectangle">Contenu du composant rectangulaire</div>
+      <GameCaptcha />
     </div>
 
     <!-- Fenêtre modale -->
@@ -21,6 +21,8 @@
 </template>
 
 <script>
+import GameCaptcha from '@components/GameCaptcha.vue'
+
 export default {
   name: 'EccoTheCaptcha',
   data() {
@@ -36,6 +38,8 @@ export default {
       this.isModalVisible = false;  // Ferme la fenêtre modale
     },
   },
+
+  mounted() {},
 };
 </script>
 
