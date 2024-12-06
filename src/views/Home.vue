@@ -32,7 +32,6 @@ export default {
 
 <template>
 <div class="min-h-screen bg-gradient">
-  <Header />
   <div class="h-screen flex flex-col justify-center items-center bg-water text-white">
     <h1 class="text-4xl font-stylish font-black text-glow mb-4">
       Les océans sont précieux. Protégons-les.

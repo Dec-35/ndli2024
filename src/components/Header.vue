@@ -15,11 +15,17 @@ export default {
       } else {
         header.classList.remove('blurry')
       }
+      this.progress = `${(window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100}%`
     }
   },
   beforeDestroy() {
     document.removeEventListener('scroll', this.handleScroll)
-  }
+  },
+  data() {
+    return {
+      progress: '0%'
+    }
+  },
 }
 </script>
 
@@ -27,8 +33,8 @@ export default {
   <header
     class="fixed top-0 left-0 w-screen flex h-14 justify-between items-center px-4 text-white"
   >
-    <router-link to="/">
-      Exemple de défi
+    <router-link to="/" class="nav-link">
+      Accueil
     </router-link>
   </header>
 </template>
@@ -39,6 +45,27 @@ header {
 
   &.blurry{
     backdrop-filter: blur(10px);
+  }
+}
+
+.nav-link{
+  &::after{
+    content: '';
+    display: block;
+    width: 5px;
+    min-width: 5px;
+    height: 2px;
+    background-color: white;
+    transition: width 0s;
+  }
+
+  &.router-link-active::after{
+    width: v-bind(progress);
+  }
+
+  &:hover::after{
+    transition: width 0.3s;
+    width: 100%;
   }
 }
 </style>
