@@ -3,12 +3,18 @@
     <h2 class="game-title">
       Utilisez les touches fléchées pour déplacer le dauphin
     </h2>
+    <div class="word-to-catch">
+      <p>{{ wordToCatch }}</p>
+      <!-- Affichage du mot à attraper -->
+    </div>
     <div class="game-content">
       <div class="game-object" :style="objectStyle"></div>
-      <div class="game-target" :style="targetStyle"></div>
-    </div>
-    <div class="score">
-      <p>Score: {{ score }}</p>
+      <div
+        v-for="(target, index) in targets"
+        :key="index"
+        class="game-target"
+        :style="targetStyles[index]"
+      ></div>
     </div>
   </div>
 </template>
@@ -56,8 +62,7 @@ export default {
       maxY: 225,
       objectWidth: 75,
       objectHeight: 31,
-      targetPosition: { x: 0, y: 0 },
-      score: 0,
+      targets: [], // Stocke les cibles
       letterImages: [
         letterA,
         letterB,
@@ -86,7 +91,8 @@ export default {
         letterY,
         letterZ,
       ],
-      currentLetterImage: '',
+      wordToCatch: '', // Mot à attraper
+      lettersCaught: [], // Lettres capturées par le dauphin
     }
   },
   computed: {
@@ -102,17 +108,28 @@ export default {
         transition: 'background-image 0.2s ease-in-out',
       }
     },
-    targetStyle() {
-      return {
-        left: `${this.targetPosition.x}px`,
-        top: `${this.targetPosition.y}px`,
-        backgroundImage: `url(${this.currentLetterImage})`,
+    targetStyles() {
+      return this.targets.map((target) => ({
+        left: `${target.position.x}px`,
+        top: `${target.position.y}px`,
+        backgroundImage: `url(${target.image})`,
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
-      }
+      }))
     },
   },
   methods: {
+    // Fonction pour générer un mot aléatoire
+    generateRandomWord() {
+      const wordLength = 5 // Longueur du mot (par exemple 5 lettres)
+      let word = ''
+      for (let i = 0; i < wordLength; i++) {
+        const randomIndex = Math.floor(Math.random() * this.letterImages.length)
+        word += String.fromCharCode(65 + randomIndex) // Génère la lettre (A-Z)
+      }
+      this.wordToCatch = word
+    },
+
     moveObject(event) {
       switch (event.key) {
         case 'ArrowUp':
@@ -124,7 +141,6 @@ export default {
           if (this.position.y + this.objectHeight < 300) {
             this.position.y += this.step
           }
-
           break
         case 'ArrowLeft':
           if (this.position.x > 0) {
@@ -145,16 +161,18 @@ export default {
       this.checkCollision()
     },
 
-    getRandomPosition() {
-      const randomX = Math.floor(Math.random() * (this.maxX - 60))
+    getRandomPositions() {
+      this.targets = [] // Réinitialiser les cibles
+      for (let i = 0; i < 5; i++) {
+        const randomX = Math.floor(Math.random() * (this.maxX - 60))
+        const randomY = Math.floor(Math.random() * (250 - 125 + 1)) + 125
+        const randomIndex = Math.floor(Math.random() * this.letterImages.length)
 
-      // Modifie cette ligne pour obtenir un nombre entre 125 et 300 pour Y
-      const randomY = Math.floor(Math.random() * (250 - 125 + 1)) + 125
-
-      this.targetPosition = { x: randomX, y: randomY }
-
-      const randomIndex = Math.floor(Math.random() * this.letterImages.length)
-      this.currentLetterImage = this.letterImages[randomIndex]
+        this.targets.push({
+          position: { x: randomX, y: randomY },
+          image: this.letterImages[randomIndex],
+        })
+      }
     },
 
     checkCollision() {
@@ -163,30 +181,43 @@ export default {
       const dolphinTop = this.position.y
       const dolphinBottom = this.position.y + this.objectHeight
 
-      const wasteWidth = 31
-      const wasteHeight = 75
+      // Vérifier chaque cible (lettre)
+      for (let i = 0; i < this.targets.length; i++) {
+        const target = this.targets[i]
+        const wasteWidth = 15
+        const wasteHeight = 33
+        const wasteLeft = target.position.x
+        const wasteRight = target.position.x + wasteWidth
+        const wasteTop = target.position.y
+        const wasteBottom = target.position.y + wasteHeight
 
-      const wasteLeft = this.targetPosition.x
-      const wasteRight = this.targetPosition.x + wasteWidth
-      const wasteTop = this.targetPosition.y
-      const wasteBottom = this.targetPosition.y + wasteHeight
+        if (
+          dolphinRight > wasteLeft &&
+          dolphinLeft < wasteRight &&
+          dolphinBottom > wasteTop &&
+          dolphinTop < wasteBottom
+        ) {
+          const letter = String.fromCharCode(
+            65 + this.letterImages.indexOf(target.image),
+          )
+          if (letter === this.wordToCatch[this.lettersCaught.length]) {
+            this.lettersCaught.push(letter)
+            this.targets.splice(i, 1) // Supprimer la cible touchée
+            break // Sortir de la boucle une fois qu'une cible est supprimée
+          }
+        }
+      }
 
-      if (
-        dolphinRight > wasteLeft &&
-        dolphinLeft < wasteRight &&
-        dolphinBottom > wasteTop &&
-        dolphinTop < wasteBottom
-      ) {
-        this.score++
-        console.log('Le dauphin a mangé le déchet! Score:', this.score)
-        this.getRandomPosition()
+      // Vérifier si le mot est complet
+      if (this.lettersCaught.join('') === this.wordToCatch) {
+        alert('Félicitations ! Vous avez attrapé le mot !')
       }
     },
   },
   mounted() {
     window.addEventListener('keydown', this.moveObject)
-    this.getRandomPosition()
-    window.addEventListener('keydown', this.moveObject)
+    this.getRandomPositions() // Génère les positions des lettres au démarrage
+    this.generateRandomWord() // Génère un mot aléatoire
   },
   beforeUnmount() {
     window.removeEventListener('keydown', this.moveObject)
@@ -207,15 +238,20 @@ export default {
   -webkit-text-stroke: 0.25px #0000;
 }
 
+.word-to-catch {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
 .game-content {
   position: relative;
   width: 600px;
   height: 300px;
   margin: 0 auto;
   border: 2px solid #ccc;
-  background-image: url('@assets/background.png'); /* Ajout de l'image en fond */
-  background-size: cover; /* Pour couvrir tout l'espace */
-  background-position: center; /* Centre l'image */
+  background-image: url('@assets/background.png');
+  background-size: cover;
+  background-position: center;
   overflow: hidden;
 }
 
@@ -226,8 +262,8 @@ export default {
 
 .game-target {
   position: absolute;
-  width: 31px;
-  height: 75px;
+  width: 15px;
+  height: 33px;
   border-radius: 50%;
 }
 </style>
