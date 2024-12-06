@@ -20,6 +20,7 @@ export default {
       interval: 1000,
       circleMinusDisplay: false,
       bottleRotation: 0,
+      volume: 'medium'
     }
   },
   components: {
@@ -120,13 +121,25 @@ export default {
     updateIntevral(){
       this.gameInterval = setTimeout(() => {
         console.log(this.interval)
-      if (this.autoPower >= 1) {
-        this.interval = Math.floor(1000 / this.autoPower) > 50 ? Math.floor(1000 / this.autoPower) : 50  
-        console.log(this.interval, 'zizi')
-        this.score += this.interval <= 50 ? Math.round(this.autoPower/(1000/this.interval)) : 1
+        if (this.autoPower >= 1) {
+          this.interval = Math.floor(1000 / this.autoPower) > 50 ? Math.floor(1000 / this.autoPower) : 50
+          console.log(this.interval, 'zizi')
+          this.score += this.interval <= 50 ? Math.round(this.autoPower/(1000/this.interval)) : 1
+        }
+        this.updateIntevral()
+      }, this.interval)
+    },
+    toggleVolumes(){
+      if(this.volume === 'medium'){
+        this.volume = 'high'
+        this.interval = 2000
+      } else if(this.volume === 'high'){
+        this.volume = 'mute'
+        this.interval = 10000
+      } else {
+        this.volume = 'medium'
+        this.interval = 1000
       }
-      this.updateIntevral()
-    }, this.interval)
     }
   },
   mounted() {
@@ -140,9 +153,11 @@ export default {
     <div class="content-color w-[65%]">
       <div class="header-color w-full h-[50px] px-10 flex justify-between">
         <!-- Header -->
-        <button>Aaaa</button>
+        <button @click="toggleVolumes">
+          <span :class="volume" class="w-10 h-10 block volume-img"/>
+        </button>
         <h4 class="p-2">Polluons l'océan !</h4>
-        <button>Aaaa</button>
+        <button>?</button>
       </div>
       <div class="flex-grow h-full ">
         <!-- Partie centrale avec bouton et autres conneries -->
@@ -182,6 +197,7 @@ export default {
       >
         <!-- Header upgrades -->
         <h1>Upgrades</h1>
+        <img src="@assets/clicker/pictos/STONKS%20ZEBI.png" alt="STONKS" class="ml-5 w-10 object-contain">
       </div>
       <div class="flex flex-col p-3 gap-3 overflow-y-auto upgrades-list">
         <div v-for="upgrade in upgrades" :key="upgrade.name">
@@ -220,7 +236,9 @@ export default {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background-color: green;
+  background-color: transparent;
+  background-image: url('@assets/clicker/pictos/Pas droit.png');
+  background-size: cover;
   cursor: pointer;
 }
 
@@ -251,4 +269,21 @@ export default {
   height: calc(100% - 50px);
 }
 
+.volume-img{
+  background-color: white;
+  mask-size: contain;
+  mask-repeat: no-repeat;
+
+  &.medium{
+    mask-image: url('@/assets/clicker/pictos/Moyen son hihihi.png');
+  }
+
+  &.high{
+    mask-image: url('@/assets/clicker/pictos/Tres haut son lalala.png');
+  }
+
+  &.mute{
+    mask-image: url('@/assets/clicker/pictos/Plus son.png');
+  }
+}
 </style>
