@@ -25,6 +25,7 @@ import chantTibetain from '@/assets/clicker/music/chantTibetain.mp3'
 import PomPom from '@/assets/clicker/music/PomPomBomJfaislesbacks.mp3'
 import siflement from '@/assets/clicker/music/siflement.mp3'
 import BouncingShip from '@/components/Clicker/BouncingShip.vue'
+import Modal from '@/components/modal.vue'
 
 export default {
   name: 'Clicker',
@@ -44,6 +45,7 @@ export default {
     }
   },
   components: {
+    Modal,
     BouncingShip,
     Upgrade,
   },
@@ -177,12 +179,16 @@ export default {
       alert('Oh non, vous avez touché le bateau de récolte des déchets ! Et franchement, c\'était pas si amusant que ça, donc autant éviter de jeter des bouteilles dans la mer, c\'est pas cool pour les poissons et les tortues :( \n Votre score est de : ' + this.score)
       this.$router.push('/')
 
+    },
+    openHelpModal(){
+      this.$refs.helpModal.show()
     }
   },
   mounted() {
     this.playMusic([bloupbloupFond, beatBox, PomPom])
     this.startRandomSFX([chantTibetain, siflement, bopLayer])
     this.updateIntevral()
+
   },
   beforeUnmount() {
     clearTimeout(this.gameInterval);
@@ -200,7 +206,7 @@ export default {
           <span :class="volume" class="w-10 h-10 block volume-img"/>
         </button>
         <h4 class="p-2">Polluons l'océan !</h4>
-        <button>?</button>
+        <button @click="openHelpModal">?</button>
       </div>
       <div class="flex-grow h-full ">
         <!-- Partie centrale avec bouton et autres conneries -->
@@ -261,6 +267,9 @@ export default {
           />
         </div>
         <!-- Contenu (liste upgrades) -->
+        <modal ref="helpModal">
+          <h1>Débrouille-toi :)</h1>
+        </modal>
       </div>
     </div>
   </div>
