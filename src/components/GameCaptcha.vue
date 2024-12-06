@@ -1,12 +1,20 @@
 <template>
   <div class="game-captcha">
+    <div class="word-to-guess">
+      <p>Mot à deviner :</p>
+      <div class="letters-container">
+        <img
+          v-for="(letter, index) in wordLetters"
+          :key="index"
+          :src="letterImage(letter)"
+          alt="letter"
+          class="letter-image"
+        />
+      </div>
+    </div>
     <h2 class="game-title">
       Utilisez les touches fléchées pour déplacer le dauphin
     </h2>
-    <div class="word-to-catch">
-      <p>{{ wordToCatch }}</p>
-      <!-- Affichage du mot à attraper -->
-    </div>
     <div class="game-content">
       <div class="game-object" :style="objectStyle"></div>
       <div
@@ -16,12 +24,32 @@
         :style="targetStyles[index]"
       ></div>
     </div>
+
+    <!-- Modal for captcha success -->
+    <div v-if="showModal" class="modal-overlay">
+      <div class="modal-content">
+        <!-- Texte supplémentaire au-dessus du bouton -->
+        <p class="modal-instruction">
+          Le Captcha va maintenant être évalué grâce à reCaptcha de Google, vous
+          serez ensuite redirigé vers l'accueil.
+        </p>
+        <div
+          ref="recaptcha"
+          class="g-recaptcha"
+          :data-sitekey="recaptchaSiteKey"
+        ></div>
+        <button @click="validateCaptcha" class="validate-btn">Continuer</button>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import { onMounted, ref } from 'vue'
+
 import dolphinFirst from '@assets/dolphinFirst.jpg'
 import dolphinSecond from '@assets/dolphinSecond.jpg'
+
 import letterA from '@assets/letters/A.png'
 import letterB from '@assets/letters/B.png'
 import letterC from '@assets/letters/C.png'
@@ -62,7 +90,7 @@ export default {
       maxY: 225,
       objectWidth: 75,
       objectHeight: 31,
-      targets: [], // Stocke les cibles
+      targets: [],
       letterImages: [
         letterA,
         letterB,
@@ -91,8 +119,11 @@ export default {
         letterY,
         letterZ,
       ],
-      wordToCatch: '', // Mot à attraper
-      lettersCaught: [], // Lettres capturées par le dauphin
+      wordToGuess: '',
+      wordLetters: [],
+      letterCount: 0,
+      showModal: false, // For controlling modal visibility
+      recaptchaSiteKey: 'your-recaptcha-site-key', // Your reCAPTCHA site key
     }
   },
   computed: {
@@ -119,28 +150,18 @@ export default {
     },
   },
   methods: {
-    // Fonction pour générer un mot aléatoire
-    generateRandomWord() {
-      const wordLength = 5 // Longueur du mot (par exemple 5 lettres)
-      let word = ''
-      for (let i = 0; i < wordLength; i++) {
-        const randomIndex = Math.floor(Math.random() * this.letterImages.length)
-        word += String.fromCharCode(65 + randomIndex) // Génère la lettre (A-Z)
-      }
-      this.wordToCatch = word
+    letterImage(letter) {
+      const letterIndex = letter.charCodeAt(0) - 65
+      return this.letterImages[letterIndex]
     },
-
     moveObject(event) {
       switch (event.key) {
         case 'ArrowUp':
-          if (this.position.y > 125) {
-            this.position.y -= this.step
-          }
+          if (this.position.y > 125) this.position.y -= this.step
           break
         case 'ArrowDown':
-          if (this.position.y + this.objectHeight < 300) {
+          if (this.position.y + this.objectHeight < 300)
             this.position.y += this.step
-          }
           break
         case 'ArrowLeft':
           if (this.position.x > 0) {
@@ -160,9 +181,9 @@ export default {
         (this.currentImageIndex + 1) % this.imageUrls.length
       this.checkCollision()
     },
-
     getRandomPositions() {
-      this.targets = [] // Réinitialiser les cibles
+      this.targets = []
+      this.wordLetters = []
       for (let i = 0; i < 5; i++) {
         const randomX = Math.floor(Math.random() * (this.maxX - 60))
         const randomY = Math.floor(Math.random() * (250 - 125 + 1)) + 125
@@ -172,16 +193,18 @@ export default {
           position: { x: randomX, y: randomY },
           image: this.letterImages[randomIndex],
         })
-      }
-    },
 
+        this.wordLetters.push(String.fromCharCode(65 + randomIndex))
+      }
+
+      this.wordToGuess = this.wordLetters.join('')
+    },
     checkCollision() {
       const dolphinLeft = this.position.x
       const dolphinRight = this.position.x + this.objectWidth
       const dolphinTop = this.position.y
       const dolphinBottom = this.position.y + this.objectHeight
 
-      // Vérifier chaque cible (lettre)
       for (let i = 0; i < this.targets.length; i++) {
         const target = this.targets[i]
         const wasteWidth = 15
@@ -197,27 +220,39 @@ export default {
           dolphinBottom > wasteTop &&
           dolphinTop < wasteBottom
         ) {
-          const letter = String.fromCharCode(
-            65 + this.letterImages.indexOf(target.image),
-          )
-          if (letter === this.wordToCatch[this.lettersCaught.length]) {
-            this.lettersCaught.push(letter)
-            this.targets.splice(i, 1) // Supprimer la cible touchée
-            break // Sortir de la boucle une fois qu'une cible est supprimée
+          this.targets.splice(i, 1) // Remove the collected letter
+          this.letterCount++
+
+          // Check if all letters have been collected
+          if (this.letterCount === 5) {
+            // Only show the captcha after all letters are collected
+            this.showModal = true
           }
+          break
         }
       }
-
-      // Vérifier si le mot est complet
-      if (this.lettersCaught.join('') === this.wordToCatch) {
-        alert('Félicitations ! Vous avez attrapé le mot !')
+    },
+    validateCaptcha() {
+      const recaptchaResponse = grecaptcha.getResponse()
+      if (recaptchaResponse) {
+        this.showModal = false
+        alert("Captcha validé ! Vous allez être redirigé vers l'accueil.")
+        // Redirection vers l'accueil
+        window.location.href = '/'
+      } else {
+        alert('Veuillez valider le captcha pour continuer.')
       }
     },
   },
   mounted() {
     window.addEventListener('keydown', this.moveObject)
-    this.getRandomPositions() // Génère les positions des lettres au démarrage
-    this.generateRandomWord() // Génère un mot aléatoire
+    this.getRandomPositions()
+
+    // Dynamically load the Google reCAPTCHA script
+    const script = document.createElement('script')
+    script.src = `https://www.google.com/recaptcha/api.js?render=explicit`
+    script.async = true
+    document.body.appendChild(script)
   },
   beforeUnmount() {
     window.removeEventListener('keydown', this.moveObject)
@@ -230,17 +265,22 @@ export default {
   text-align: center;
 }
 
-.game-title {
-  margin-bottom: 20px;
-  font-family: 'Press Start 2P', sans-serif;
-  text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.7);
-  color: #ffc15a;
-  -webkit-text-stroke: 0.25px #0000;
+.word-to-guess {
+  background-color: black;
+  color: white;
+  padding: 10px;
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
-.word-to-catch {
-  font-size: 24px;
-  margin-bottom: 20px;
+.letters-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.game-title {
+  margin-top: 20px;
 }
 
 .game-content {
@@ -265,5 +305,53 @@ export default {
   width: 15px;
   height: 33px;
   border-radius: 50%;
+}
+
+.letter-image {
+  width: 15px;
+  height: 33px;
+  object-fit: contain;
+}
+
+/* Modal Styles */
+.modal-instruction {
+  margin-top: 10px;
+  font-size: 1rem;
+  color: #333;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+}
+
+.validate-btn {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.validate-btn:hover {
+  background-color: #45a049;
 }
 </style>
