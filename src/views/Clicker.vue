@@ -6,9 +6,28 @@ import viderVoiture from '@assets/clicker/pictos/viderVoiture.png';
 import dechargerCamion from '@/assets/clicker/pictos/dechargerCamion.png';
 import larguerAvion from '@/assets/clicker/pictos/larguerAvion.png';
 
+import Avion from '@assets/clicker/sounds/Avion.m4a'
+import Bouteille from '@assets/clicker/sounds/Clic bouteille.m4a'
+import Main from '@assets/clicker/sounds/Main.m4a'
+import Pote from '@assets/clicker/sounds/Équipe.m4a'
+import Voiture from '@assets/clicker/sounds/Voiture.m4a'
+import Camion from '@assets/clicker/sounds/Camion.m4a'
+import SoundsMixin from '@/mixins/SoundsMixin.js'
+import VolumeUp from '@assets/clicker/sounds/Volume up.m4a'
+import UpgradeSound from '@/assets/clicker/sounds/Upgrade.m4a'
+import Bipbip from '@/assets/clicker/sounds/bipbip.m4a'
+import PointPoint from '@/assets/clicker/sounds/point point point poiiiint.m4a'
+
+import beatBox from '@/assets/clicker/music/beatbox.mp3'
+import bloupbloupFond from '@/assets/clicker/music/bloupbloupFond.mp3'
+import bopLayer from '@/assets/clicker/music/bopLayer.mp3'
+import chantTibetain from '@/assets/clicker/music/chantTibetain.mp3'
+import PomPom from '@/assets/clicker/music/PomPomBomJfaislesbacks.mp3'
+import siflement from '@/assets/clicker/music/siflement.mp3'
+
 export default {
   name: 'Clicker',
-  mixins: [],
+  mixins: [SoundsMixin],
   data() {
     return {
       score: 0,
@@ -36,6 +55,7 @@ export default {
           image: lanceBouteilleImage,
           quantity: 0,
           manualPowerUpgrade: 1,
+          soundOnHover: Main,
         },
         'Embaucher un pote': {
           name: 'Embaucher un pote',
@@ -45,6 +65,7 @@ export default {
           image: embaucherPote,
           quantity: 0,
           autoPowerUpgrade: 1,
+          soundOnHover: Pote,
         },
         'Vider la voiture': {
           name: 'Vider la voiture',
@@ -54,6 +75,7 @@ export default {
           image: viderVoiture,
           quantity: 0,
           autoPowerUpgrade: 10,
+          soundOnHover: Voiture,
         },
         'Décharger un camion': {
           name: 'Décharger un camion',
@@ -63,6 +85,7 @@ export default {
           image: dechargerCamion,
           quantity: 0,
           autoPowerUpgrade: 100,
+          soundOnHover: Camion,
         },
         'Larguer un container par avion': {
           name: 'Larguer un container par avion',
@@ -72,6 +95,7 @@ export default {
           image: larguerAvion,
           quantity: 0,
           autoPowerUpgrade: 1000,
+          soundOnHover: Avion,
         },
       }
     },
@@ -97,8 +121,10 @@ export default {
         this.moveCircle() // Déplace immédiatement le cercle
       }
       this.score += this.clickPower
+      this.playAudio(Bouteille)
     },
     circleMinusClicked() {
+      this.playAudio(Bipbip)
       this.score -= this.clickPower
     },
 
@@ -115,21 +141,21 @@ export default {
           ? this.autoPower = this.upgrades[name].autoPowerUpgrade
           : (this.autoPower += this.upgrades[name].autoPowerUpgrade)
       }
+      this.playAudio(UpgradeSound)
 
       this.upgrades[name].price = Math.round(this.upgrades[name].price * 1.2)
     },
     updateIntevral(){
       this.gameInterval = setTimeout(() => {
-        console.log(this.interval)
         if (this.autoPower >= 1) {
           this.interval = Math.floor(1000 / this.autoPower) > 50 ? Math.floor(1000 / this.autoPower) : 50
-          console.log(this.interval, 'zizi')
           this.score += this.interval <= 50 ? Math.round(this.autoPower/(1000/this.interval)) : 1
         }
         this.updateIntevral()
       }, this.interval)
     },
     toggleVolumes(){
+      this.playAudio(VolumeUp)
       if(this.volume === 'medium'){
         this.volume = 'high'
         this.interval = 2000
@@ -143,8 +169,13 @@ export default {
     }
   },
   mounted() {
+    this.playMusic([bloupbloupFond, beatBox, PomPom])
     this.updateIntevral()
   },
+  beforeUnmount() {
+    clearTimeout(this.gameInterval);
+    this.stopMusic()
+  }
 }
 </script>
 
@@ -208,6 +239,7 @@ export default {
             :description="upgrade.description"
             :image="upgrade.image"
             :quantity="upgrade.quantity"
+            :audio="upgrade.soundOnHover"
             @click="buyUpgrade(upgrade.name, upgrade.price)"
           />
         </div>

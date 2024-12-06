@@ -1,6 +1,9 @@
 <script>
+import SoundsMixin from '@/mixins/SoundsMixin.js'
+
 export default {
   name: 'Upgrade',
+  mixins: [SoundsMixin],
   props: {
     name: {
       type: String,
@@ -22,12 +25,16 @@ export default {
       type: Number,
       required: true,
     },
+    audio: {
+      type: Object,
+      required: true,
+    }
   },
 }
 </script>
 
 <template>
-  <div class="upgrade-card p-2 rounded-md flex gap-3">
+  <div class="upgrade-card p-2 rounded-md flex gap-3" @mouseenter="playAudio(audio)">
     <div>
       <img :src="image" alt="UpgradeLogo" class="object-cover w-20" />
     </div>
