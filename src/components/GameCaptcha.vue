@@ -46,35 +46,35 @@
 </template>
 
 <script>
-import dolphinFirst from '@assets/ecco/dolphinFirst.jpg'
-import dolphinSecond from '@assets/ecco/dolphinSecond.jpg'
+import dolphinFirst from '@assets/Ecco/dolphinFirst.jpg'
+import dolphinSecond from '@assets/Ecco/dolphinSecond.jpg'
 
-import letterA from '@assets/ecco/letters/A.png'
-import letterB from '@assets/ecco/letters/B.png'
-import letterC from '@assets/ecco/letters/C.png'
-import letterD from '@assets/ecco/letters/D.png'
-import letterE from '@assets/ecco/letters/E.png'
-import letterF from '@assets/ecco/letters/F.png'
-import letterG from '@assets/ecco/letters/G.png'
-import letterH from '@assets/ecco/letters/H.png'
-import letterI from '@assets/ecco/letters/I.png'
-import letterJ from '@assets/ecco/letters/J.png'
-import letterK from '@assets/ecco/letters/K.png'
-import letterL from '@assets/ecco/letters/L.png'
-import letterM from '@assets/ecco/letters/M.png'
-import letterN from '@assets/ecco/letters/N.png'
-import letterO from '@assets/ecco/letters/O.png'
-import letterP from '@assets/ecco/letters/P.png'
-import letterQ from '@assets/ecco/letters/Q.png'
-import letterR from '@assets/ecco/letters/R.png'
-import letterS from '@assets/ecco/letters/S.png'
-import letterT from '@assets/ecco/letters/T.png'
-import letterU from '@assets/ecco/letters/U.png'
-import letterV from '@assets/ecco/letters/V.png'
-import letterW from '@assets/ecco/letters/W.png'
-import letterX from '@assets/ecco/letters/X.png'
-import letterY from '@assets/ecco/letters/Y.png'
-import letterZ from '@assets/ecco/letters/Z.png'
+import letterA from '@assets/Ecco/letters/A.png'
+import letterB from '@assets/Ecco/letters/B.png'
+import letterC from '@assets/Ecco/letters/C.png'
+import letterD from '@assets/Ecco/letters/D.png'
+import letterE from '@assets/Ecco/letters/E.png'
+import letterF from '@assets/Ecco/letters/F.png'
+import letterG from '@assets/Ecco/letters/G.png'
+import letterH from '@assets/Ecco/letters/H.png'
+import letterI from '@assets/Ecco/letters/I.png'
+import letterJ from '@assets/Ecco/letters/J.png'
+import letterK from '@assets/Ecco/letters/K.png'
+import letterL from '@assets/Ecco/letters/L.png'
+import letterM from '@assets/Ecco/letters/M.png'
+import letterN from '@assets/Ecco/letters/N.png'
+import letterO from '@assets/Ecco/letters/O.png'
+import letterP from '@assets/Ecco/letters/P.png'
+import letterQ from '@assets/Ecco/letters/Q.png'
+import letterR from '@assets/Ecco/letters/R.png'
+import letterS from '@assets/Ecco/letters/S.png'
+import letterT from '@assets/Ecco/letters/T.png'
+import letterU from '@assets/Ecco/letters/U.png'
+import letterV from '@assets/Ecco/letters/V.png'
+import letterW from '@assets/Ecco/letters/W.png'
+import letterX from '@assets/Ecco/letters/X.png'
+import letterY from '@assets/Ecco/letters/Y.png'
+import letterZ from '@assets/Ecco/letters/Z.png'
 
 export default {
   name: 'GameCaptcha',
@@ -297,7 +297,7 @@ export default {
   height: 300px;
   margin: 0 auto;
   border: 2px solid #ccc;
-  background-image: url('@assets/ecco/background.png');
+  background-image: url('@assets/Ecco/background.png');
   background-size: cover;
   background-position: center;
   overflow: hidden;

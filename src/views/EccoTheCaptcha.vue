@@ -77,7 +77,7 @@ export default {
   justify-content: center;
   height: 100vh;
   margin: 0;
-  background-image: url('@/assets/ecco/fondcapcha.jpg');
+  background-image: url('@/assets/Ecco/fondcapcha.jpg');
   background-repeat: repeat;
   background-size: auto;
   background-color: #001f3f;
