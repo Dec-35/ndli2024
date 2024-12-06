@@ -33,7 +33,7 @@ export default {
       maxX: 525, // Limite maximale de X (largeur de l'encadré - largeur de l'image)
       maxY: 225, // Limite maximale de Y (hauteur de l'encadré - hauteur de l'image)
       objectWidth: 75, // Largeur de l'objet
-      objectHeight: 75, // Hauteur de l'objet
+      objectHeight: 31, // Hauteur de l'objet
       targetPosition: { x: 0, y: 0 }, // Position du déchet
       score: 0, // Compteur de déchets mangés
     }
@@ -110,10 +110,13 @@ export default {
       const dolphinTop = this.position.y
       const dolphinBottom = this.position.y + this.objectHeight
 
+      const wasteWidth = 75 // Largeur actuelle du déchet
+      const wasteHeight = 31 // Hauteur réduite du déchet
+
       const wasteLeft = this.targetPosition.x
-      const wasteRight = this.targetPosition.x + 30 // Largeur du déchet
+      const wasteRight = this.targetPosition.x + wasteWidth
       const wasteTop = this.targetPosition.y
-      const wasteBottom = this.targetPosition.y + 30 // Hauteur du déchet
+      const wasteBottom = this.targetPosition.y + wasteHeight
 
       // Vérifie si les zones du dauphin et du déchet se chevauchent
       if (
@@ -126,7 +129,6 @@ export default {
         this.score++
         console.log('Le dauphin a mangé le déchet! Score:', this.score)
 
-        // Repositionner le déchet
         this.getRandomPosition()
       }
     },
@@ -171,8 +173,8 @@ export default {
 
 .game-target {
   position: absolute;
-  width: 30px;
-  height: 30px;
+  width: 75px;
+  height: 31px;
   border-radius: 50%;
 }
 </style>
