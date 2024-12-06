@@ -46,35 +46,35 @@
 </template>
 
 <script>
-import dolphinFirst from '@assets/dolphinFirst.jpg'
-import dolphinSecond from '@assets/dolphinSecond.jpg'
+import dolphinFirst from '@assets/ecco/dolphinFirst.jpg'
+import dolphinSecond from '@assets/ecco/dolphinSecond.jpg'
 
-import letterA from '@assets/letters/A.png'
-import letterB from '@assets/letters/B.png'
-import letterC from '@assets/letters/C.png'
-import letterD from '@assets/letters/D.png'
-import letterE from '@assets/letters/E.png'
-import letterF from '@assets/letters/F.png'
-import letterG from '@assets/letters/G.png'
-import letterH from '@assets/letters/H.png'
-import letterI from '@assets/letters/I.png'
-import letterJ from '@assets/letters/J.png'
-import letterK from '@assets/letters/K.png'
-import letterL from '@assets/letters/L.png'
-import letterM from '@assets/letters/M.png'
-import letterN from '@assets/letters/N.png'
-import letterO from '@assets/letters/O.png'
-import letterP from '@assets/letters/P.png'
-import letterQ from '@assets/letters/Q.png'
-import letterR from '@assets/letters/R.png'
-import letterS from '@assets/letters/S.png'
-import letterT from '@assets/letters/T.png'
-import letterU from '@assets/letters/U.png'
-import letterV from '@assets/letters/V.png'
-import letterW from '@assets/letters/W.png'
-import letterX from '@assets/letters/X.png'
-import letterY from '@assets/letters/Y.png'
-import letterZ from '@assets/letters/Z.png'
+import letterA from '@assets/ecco/letters/A.png'
+import letterB from '@assets/ecco/letters/B.png'
+import letterC from '@assets/ecco/letters/C.png'
+import letterD from '@assets/ecco/letters/D.png'
+import letterE from '@assets/ecco/letters/E.png'
+import letterF from '@assets/ecco/letters/F.png'
+import letterG from '@assets/ecco/letters/G.png'
+import letterH from '@assets/ecco/letters/H.png'
+import letterI from '@assets/ecco/letters/I.png'
+import letterJ from '@assets/ecco/letters/J.png'
+import letterK from '@assets/ecco/letters/K.png'
+import letterL from '@assets/ecco/letters/L.png'
+import letterM from '@assets/ecco/letters/M.png'
+import letterN from '@assets/ecco/letters/N.png'
+import letterO from '@assets/ecco/letters/O.png'
+import letterP from '@assets/ecco/letters/P.png'
+import letterQ from '@assets/ecco/letters/Q.png'
+import letterR from '@assets/ecco/letters/R.png'
+import letterS from '@assets/ecco/letters/S.png'
+import letterT from '@assets/ecco/letters/T.png'
+import letterU from '@assets/ecco/letters/U.png'
+import letterV from '@assets/ecco/letters/V.png'
+import letterW from '@assets/ecco/letters/W.png'
+import letterX from '@assets/ecco/letters/X.png'
+import letterY from '@assets/ecco/letters/Y.png'
+import letterZ from '@assets/ecco/letters/Z.png'
 
 export default {
   name: 'GameCaptcha',
@@ -243,22 +243,7 @@ export default {
       console.log('reCAPTCHA success:', response)
     },
     validateCaptcha() {
-      // Récupérer la réponse du reCAPTCHA après l'initialisation
-      grecaptcha.ready(() => {
-        // Execute the reCAPTCHA
-        grecaptcha
-          .execute("6Ld735MqAAAAAJODKDp93FV3CkYlAP8-X-wpGge-", { action: 'submit' })
-          .then((token) => {
-            if (token) {
-              // Réponse valide, masquer la modale et rediriger
-              this.showModal = false
-              alert("Captcha validé ! Vous allez être redirigé vers l'accueil.")
-              window.location.href = '/' // Redirection vers la page d'accueil
-            } else {
-              alert('Veuillez valider le captcha pour continuer.')
-            }
-          })
-      })
+      window.location.href = '/'
     },
   },
   mounted() {
@@ -312,7 +297,7 @@ export default {
   height: 300px;
   margin: 0 auto;
   border: 2px solid #ccc;
-  background-image: url('@assets/background.png');
+  background-image: url('@assets/ecco/background.png');
   background-size: cover;
   background-position: center;
   overflow: hidden;

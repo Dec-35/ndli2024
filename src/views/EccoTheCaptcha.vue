@@ -6,10 +6,13 @@
       <button class="btn" @click="startGame">Jouer</button>
     </div>
     <div v-if="gameStarted" class="component-container">
-      <GameCaptcha/>
+      <GameCaptcha />
     </div>
     <div v-else class="image-accueil">
-      <img src="@assets/DauphinEcranAccueil.png" alt="Image dauphin accueil" />
+      <img
+        src="@assets/ecco/DauphinEcranAccueil.png"
+        alt="Image dauphin accueil"
+      />
     </div>
 
     <div v-if="isModalVisible" class="modal-overlay" @click="closeModal">
@@ -27,13 +30,15 @@
 
 <script>
 import GameCaptcha from '@components/GameCaptcha.vue'
+import sound from '@assets/Ecco/eccoTheSound.mp3'
+import SoundsMixin from '@/mixins/SoundsMixin.js'
 
 export default {
   name: 'EccoTheCaptcha',
-
+  mixins: [SoundsMixin],
   data() {
     return {
-      isModalVisible: false, 
+      isModalVisible: false,
       gameStarted: false,
     }
   },
@@ -43,10 +48,14 @@ export default {
       this.isModalVisible = true
     },
     closeModal() {
-      this.isModalVisible = false 
+      this.isModalVisible = false
     },
     startGame() {
-      this.gameStarted = true;
+      this.gameStarted = true
+      this.launchMusic()
+    },
+    launchMusic() {
+      this.playAudio(sound, 1, 1)
     },
   },
 
@@ -68,7 +77,7 @@ export default {
   justify-content: center;
   height: 100vh;
   margin: 0;
-  background-image: url('@/assets/fondcapcha.jpg');
+  background-image: url('@/assets/ecco/fondcapcha.jpg');
   background-repeat: repeat;
   background-size: auto;
   background-color: #001f3f;
@@ -151,7 +160,7 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(114, 104, 104, 0.5); 
+  background: rgba(114, 104, 104, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -159,7 +168,7 @@ export default {
 }
 
 .modal {
-  background-color: rgb(123, 121, 121); 
+  background-color: rgb(123, 121, 121);
   padding: 80px;
   width: 600px;
   text-align: center;
@@ -179,7 +188,7 @@ export default {
 .btn-close {
   background-color: #000dff8e;
   color: #ffffff;
-  border: 2px solid #ffffff; 
+  border: 2px solid #ffffff;
   padding: 10px 20px;
   cursor: pointer;
   font-size: 1rem;
